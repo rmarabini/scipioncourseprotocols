@@ -3,7 +3,11 @@
 # edit the file
 # $SCIPION_HOME/pyworkflow/em/packages/__init__.py
 # and add the line
-# from 1_protocol import XmippProtABS
+# from protocol_1 import XmippProtABS
+# launch scipion
+# create project and search for new protocol
+# CTRL-F
+
 
 from pyworkflow.em.protocol import EMProtocol
 from pyworkflow.protocol.params import PointerParam
@@ -13,8 +17,6 @@ class XmippProtABS(EMProtocol):
     compute the absolute value of a set of images
     """
     _label = 'abs'
-    _program = ""
-    _version = '1.2'
 
     def __init__(self, **kwargs):
         EMProtocol.__init__(self, **kwargs)
