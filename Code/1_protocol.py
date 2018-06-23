@@ -1,5 +1,10 @@
 # place this code in the directory
-# $SCIPION_HOME/pyworkflow/em/packages
+# $SCIPION_HOME/pyworkflow/em/packages/xmipp3
+# edit the file
+# $SCIPION_HOME/pyworkflow/em/packages/__init__.py
+# and add the line
+# from 1_protocol import XmippProtABS
+
 from pyworkflow.em.protocol import EMProtocol
 from pyworkflow.protocol.params import PointerParam
 
