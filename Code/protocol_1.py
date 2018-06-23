@@ -32,6 +32,8 @@ class XmippProtABS(EMProtocol):
                        label="this appears in the GUI",
                        help='help message')
 
+        # add a IntParam, if you do not konw how just search
+        # for examples in $SCIPION_HOME/pyworkflow/em/packages/xmipp3
 
     #--------------- INSERT steps functions ----------------
 
@@ -40,11 +42,11 @@ class XmippProtABS(EMProtocol):
 
     #--------------- STEPS functions -----------------------
 
-    def convertInputStep(self):
-        pass
-
-#    def runOperateStep(self, params):
+#    def convertInputStep(self):
 #        pass
+
+    def runOperateStep(self, params):
+        pass
 
 #    def createOutputStep(self):
 #        pass
