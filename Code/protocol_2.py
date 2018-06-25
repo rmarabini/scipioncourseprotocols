@@ -41,27 +41,28 @@ class XmippProtABS(EMProtocol):
                        pointerClass='SetOfParticles',
                        label="Input images",
                        help='Images to be processed')
-        group.addParam('yDim', IntParam,
-                       default=128,label='Useless parameter')
-        form.addParam('xDim', IntParam, default=128,label='Y dimension')
-        self.inputFn = self._getExtraPath('metadata.xmp')
-
-        # add a IntParam, if you do not know how just search
-        # for examples in $SCIPION_HOME/pyworkflow/em/packages/xmipp3
-
+        self.inputFn = self._getExtraPath("images.xmd")
     #--------------- INSERT steps functions ----------------
 
     def _insertAllSteps(self):
-        self._insertFunctionStep('runOperateStep')
+        self._insertFunctionStep('convertInputStep')
 
     #--------------- STEPS functions -----------------------
 
     def convertInputStep(self):
-        writeSetOfParticles(self.inputParticles.get(), self.inputFn,
-                            alignType=ALIGN_NONE)
+        writeSetOfParticles(self.inputParticles.get(), self.inputFn)
 
     def runOperateStep(self):
         pass
+    #    _, inputImagesFileName = self.inputImages.get().getLocation()
+    #    # self.inputImages <- pointer to set of images
+    #    # self.inputImages.get() <- object
+    #    # self.inputImages.get().getFileName() <- file Name
+    #    outputImages = 'operatedImages'
+    #    outputImagesFileName = self._getExtraPath(outputImages)
+    #    args = "-i %s --abs -o %s" % (inputImagesFileName,
+    #                                  outputImagesFileName)
+    #    self.runJob("xmipp_image_operate", args)
 
 #    def createOutputStep(self):
 #        pass

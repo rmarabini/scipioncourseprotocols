@@ -37,11 +37,11 @@ class XmippProtABS(EMProtocol):
         group = form.addGroup('Input')
         group.addParam('name_of_the_variable_that_stores_the_images',
                        PointerParam,
-                       pointerClass='SetOfImages',
+                       pointerClass='SetOfParticles',
                        label="this appears in the GUI",
                        help='help message')
 
-        # add a IntParam, if you do not konw how just search
+        # add a IntParam, if you do not know how just search
         # for examples in $SCIPION_HOME/pyworkflow/em/packages/xmipp3
 
     #--------------- INSERT steps functions ----------------
