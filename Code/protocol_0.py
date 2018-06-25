@@ -3,7 +3,7 @@
 # edit the file
 # $SCIPION_HOME/pyworkflow/em/packages/__init__.py
 # and add the line
-# from template_0 import XmippProtABS
+# from protocol_1 import XmippProtABS
 # launch scipion
 # create project and search for new protocol
 # CTRL-F
@@ -19,7 +19,8 @@
 # STEP 7: USE as input tow sets of images and add them
 
 from pyworkflow.em.protocol import EMProtocol
-from pyworkflow.protocol.params import PointerParam
+from pyworkflow.protocol.params import PointerParam, IntParam
+from pyworkflow.em.packages.xmipp3.convert import (writeSetOfParticles)
 
 class XmippProtABS(EMProtocol):
     """
@@ -35,11 +36,15 @@ class XmippProtABS(EMProtocol):
     def _defineParams(self, form):
         form.addSection(label='Params')
         group = form.addGroup('Input')
-        group.addParam('name_of_the_variable_that_stores_the_images',
+        group.addParam('inputParticles',
                        PointerParam,
                        pointerClass='SetOfParticles',
-                       label="this appears in the GUI",
-                       help='help message')
+                       label="Input images",
+                       help='Images to be processed')
+
+#        group.addParam('yDim', IntParam,
+#                       default=128,label='Useless parameter')
+#        form.addParam('xDim', IntParam, default=128,label='Y dimension')
 
         # add a IntParam, if you do not know how just search
         # for examples in $SCIPION_HOME/pyworkflow/em/packages/xmipp3
@@ -47,14 +52,15 @@ class XmippProtABS(EMProtocol):
     #--------------- INSERT steps functions ----------------
 
     def _insertAllSteps(self):
-        self._insertFunctionStep('runOperateStep')
+        self._defineFilenames()
+        self._insertFunctionStep('convertInputStep')
 
     #--------------- STEPS functions -----------------------
 
-#    def convertInputStep(self):
-#        pass
+    def convertInputStep(self):
+        pass
 
-    def runOperateStep(self, params):
+    def runOperateStep(self):
         pass
 
 #    def createOutputStep(self):
