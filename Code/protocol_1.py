@@ -52,7 +52,7 @@ class XmippProtABS(EMProtocol):
     #--------------- INSERT steps functions ----------------
 
     def _insertAllSteps(self):
-        self._insertFunctionStep('runOperateStep')
+        self._insertFunctionStep('convertInputStep')
 
     #--------------- STEPS functions -----------------------
 
