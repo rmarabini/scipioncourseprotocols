@@ -41,10 +41,10 @@ class XmippProtABS(EMProtocol):
                        pointerClass='SetOfParticles',
                        label="Input images",
                        help='Images to be processed')
-        group.addParam('yDim', IntParam,
-                       default=128,label='Useless parameter')
-        form.addParam('xDim', IntParam, default=128,label='Y dimension')
-        self.inputFn = self._getExtraPath('metadata.xmp')
+
+#        group.addParam('yDim', IntParam,
+#                       default=128,label='Useless parameter')
+#        form.addParam('xDim', IntParam, default=128,label='Y dimension')
 
         # add a IntParam, if you do not know how just search
         # for examples in $SCIPION_HOME/pyworkflow/em/packages/xmipp3
@@ -52,13 +52,13 @@ class XmippProtABS(EMProtocol):
     #--------------- INSERT steps functions ----------------
 
     def _insertAllSteps(self):
+        self._defineFilenames()
         self._insertFunctionStep('convertInputStep')
 
     #--------------- STEPS functions -----------------------
 
     def convertInputStep(self):
-        writeSetOfParticles(self.inputParticles.get(), self.inputFn,
-                            alignType=ALIGN_NONE)
+        writeSetOfParticles(self.inputParticles.get(), self.inputFn)
 
     def runOperateStep(self):
         pass
@@ -82,4 +82,8 @@ class XmippProtABS(EMProtocol):
 
     #--------------- UTILS functions -------------------------
 
+    def _defineFilenames(self):
+        self.inputFn = self._getTmpPath('input_particles.xmd')
+        self.outputMd = self._getExtraPath('output_images.xmd')
+        self.outputStk = self._getExtraPath('output_images.stk')
 

@@ -3,7 +3,7 @@
 # edit the file
 # $SCIPION_HOME/pyworkflow/em/packages/__init__.py
 # and add the line
-# from protocol_1 import XmippProtABS
+# from template_0 import XmippProtABS
 # launch scipion
 # create project and search for new protocol
 # CTRL-F
