@@ -3,7 +3,7 @@
 # edit the file
 # $SCIPION_HOME/pyworkflow/em/packages/__init__.py
 # and add the line
-# from protocol_1 import XmippProtABS
+# from template_0 import XmippProtABS
 # launch scipion
 # create project and search for new protocol
 # CTRL-F
@@ -76,4 +76,8 @@ class XmippProtABS(EMProtocol):
 
     #--------------- UTILS functions -------------------------
 
+    def _defineFilenames(self):
+        self.inputFn = self._getTmpPath('input_particles.xmd')
+        self.outputMd = self._getExtraPath('output_images.xmd')
+        self.outputStk = self._getExtraPath('output_images.stk')
 

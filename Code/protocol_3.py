@@ -21,6 +21,9 @@
 from pyworkflow.em.protocol import EMProtocol
 from pyworkflow.protocol.params import PointerParam, IntParam
 from pyworkflow.em.packages.xmipp3.convert import (writeSetOfParticles)
+from pyworkflow.object import String
+import pyworkflow.em.metadata as md
+from convert import writeSetOfParticles, xmippToLocation
 
 class XmippProtABS(EMProtocol):
     """
@@ -42,18 +45,13 @@ class XmippProtABS(EMProtocol):
                        label="Input images",
                        help='Images to be processed')
 
-#        group.addParam('yDim', IntParam,
-#                       default=128,label='Useless parameter')
-#        form.addParam('xDim', IntParam, default=128,label='Y dimension')
-
-        # add a IntParam, if you do not know how just search
-        # for examples in $SCIPION_HOME/pyworkflow/em/packages/xmipp3
-
     #--------------- INSERT steps functions ----------------
 
     def _insertAllSteps(self):
         self._defineFilenames()
         self._insertFunctionStep('convertInputStep')
+        self._insertFunctionStep('runOperateStep')
+        self._insertFunctionStep('createOutputStep')
 
     #--------------- STEPS functions -----------------------
 
@@ -61,11 +59,21 @@ class XmippProtABS(EMProtocol):
         writeSetOfParticles(self.inputParticles.get(), self.inputFn)
 
     def runOperateStep(self):
-        pass
+        # metadata outmetadata.xmd
+        args = "-i %s --abs -o %s" % (self.inputFn, self.outputStk)
+        self.runJob("xmipp_image_operate", args)
 
-#    def createOutputStep(self):
-#        pass
-
+    def createOutputStep(self):
+        inputSet = self.inputParticles.get()
+        outputSet = self._createSetOfParticles()
+        outputSet.copyInfo(inputSet)
+        outputSet.copyItems(inputSet,
+                        updateItemCallback=self._updateItem,
+                        itemDataIterator=md.iterRows(
+                                self.outputMd,
+                                sortByLabel=md.MDL_ITEM_ID)
+                            )
+        self._defineOutputs(outputSet=outputSet)
     #--------------- INFO functions -------------------------
 
     def _validate(self):
@@ -87,3 +95,13 @@ class XmippProtABS(EMProtocol):
         self.outputMd = self._getExtraPath('output_images.xmd')
         self.outputStk = self._getExtraPath('output_images.stk')
 
+    def _updateItem(self, item, row):
+        """ Implement this function to do some
+        update actions over each single item
+        that will be stored in the output Set.
+        """
+        # By default update the item location (index, filename)
+        # with the new binary data location (after preprocessing)
+        newFn = row.getValue(md.MDL_IMAGE)
+        newLoc = xmippToLocation(newFn)
+        item.setLocation(newLoc)

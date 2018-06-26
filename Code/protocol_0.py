@@ -58,7 +58,7 @@ class XmippProtABS(EMProtocol):
     #--------------- STEPS functions -----------------------
 
     def convertInputStep(self):
-        writeSetOfParticles(self.inputParticles.get(), self.inputFn)
+        pass
 
     def runOperateStep(self):
         pass
