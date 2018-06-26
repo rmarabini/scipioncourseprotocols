@@ -25,7 +25,7 @@ from pyworkflow.object import String
 import pyworkflow.em.metadata as md
 from convert import writeSetOfParticles, xmippToLocation
 #################
-# Add two tests of images
+# Add two sets of images
 #################
 
 class XmippProtABS(EMProtocol):
