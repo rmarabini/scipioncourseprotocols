@@ -22,6 +22,9 @@ from pyworkflow.em.protocol import EMProtocol
 from pyworkflow.protocol.params import PointerParam, IntParam
 from pyworkflow.em.packages.xmipp3.convert import (writeSetOfParticles)
 from pyworkflow.object import String
+#################
+# Add runOperateStep
+#################
 
 class XmippProtABS(EMProtocol):
     """
@@ -43,13 +46,6 @@ class XmippProtABS(EMProtocol):
                        label="Input images",
                        help='Images to be processed')
 
-#        group.addParam('yDim', IntParam,
-#                       default=128,label='Useless parameter')
-#        form.addParam('xDim', IntParam, default=128,label='Y dimension')
-
-        # add a IntParam, if you do not know how just search
-        # for examples in $SCIPION_HOME/pyworkflow/em/packages/xmipp3
-
     #--------------- INSERT steps functions ----------------
 
     def _insertAllSteps(self):
@@ -63,8 +59,6 @@ class XmippProtABS(EMProtocol):
         writeSetOfParticles(self.inputParticles.get(), self.inputFn)
 
     def runOperateStep(self):
-
-        # metadata outmetadata.xmd
         args = "-i %s --abs -o %s" % (self.inputFn, self.outputStk)
         self.runJob("xmipp_image_operate", args)
 

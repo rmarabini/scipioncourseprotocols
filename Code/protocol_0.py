@@ -21,6 +21,9 @@
 from pyworkflow.em.protocol import EMProtocol
 from pyworkflow.protocol.params import PointerParam, IntParam
 from pyworkflow.em.packages.xmipp3.convert import (writeSetOfParticles)
+#################
+# Define Parameters
+#################
 
 class XmippProtABS(EMProtocol):
     """

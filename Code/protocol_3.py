@@ -24,6 +24,9 @@ from pyworkflow.em.packages.xmipp3.convert import (writeSetOfParticles)
 from pyworkflow.object import String
 import pyworkflow.em.metadata as md
 from convert import writeSetOfParticles, xmippToLocation
+#################
+# Add createOutputStep
+#################
 
 class XmippProtABS(EMProtocol):
     """
