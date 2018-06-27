@@ -70,6 +70,11 @@ class XmippProtABS(EMProtocol):
         inputSet = self.inputParticles.get()
         outputSet = self._createSetOfParticles()
         outputSet.copyInfo(inputSet)
+        # for each inPart, Xmipprow in zip(inputSet, outputMd)
+        #               newpart = Particle 
+        #               copy inPart to newPart 
+        #                _update updateItem(newPart,Xmipprow)
+        #                outputSet.append(newPart) 
         outputSet.copyItems(inputSet,
                         updateItemCallback=self._updateItem,
                         itemDataIterator=md.iterRows(
