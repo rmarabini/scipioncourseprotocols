@@ -28,14 +28,14 @@ class TestXmippABS(BaseTest):
                                           objLabel='invert contrast',
                                           doInvert=True)
 
-        inputParts = self.protImport.outputParticles.get()
+        inputParts = self.protImport.outputParticles
         protPreprocess.inputParticles.set(inputParts)
 
         self.launchProtocol(protPreprocess)
 
         outputParts = getattr(protPreprocess, 'outputParticles', None)
 
-        self.assertNotNone(outputParts)
+        self.assertIsNotNone(outputParts)
         self.assertEqual(outputParts.getSize(), inputParts.getSize())
 
 
